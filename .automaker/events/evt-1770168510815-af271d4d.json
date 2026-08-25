@@ -1,0 +1,11 @@
+{
+  "id": "evt-1770168510815-af271d4d",
+  "trigger": "feature_success",
+  "timestamp": "2026-02-04T01:28:30.815Z",
+  "projectPath": "D:\\titosolutions\\repositories\\tanstack-fullstack-boilerplate",
+  "projectName": "tanstack-fullstack-boilerplate",
+  "featureId": "feature-1770167906855-igg27rvwk",
+  "featureName": "Refactor TanStack Start Full-Stack to Frontend-Only Architecture",
+  "error": "Feature completed in 592s",
+  "passes": true
+}

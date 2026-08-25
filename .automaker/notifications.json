@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "notifications": [
+    {
+      "id": "a7d9fa55-c51a-4371-a8ab-16ca8c1faaa0",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1770160545537-g117xb87f\" is ready for your review and approval.",
+      "createdAt": "2026-02-04T00:13:36.547Z",
+      "read": true,
+      "dismissed": true,
+      "featureId": "feature-1770160545537-g117xb87f",
+      "projectPath": "D:\\titosolutions\\repositories\\goodbase"
+    },
+    {
+      "id": "78ade101-eba7-4abb-990d-7f87d772a738",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1770167906855-igg27rvwk\" is ready for your review and approval.",
+      "createdAt": "2026-02-04T01:26:56.342Z",
+      "read": false,
+      "dismissed": true,
+      "featureId": "feature-1770167906855-igg27rvwk",
+      "projectPath": "D:\\titosolutions\\repositories\\tanstack-fullstack-boilerplate"
+    }
+  ]
+}
