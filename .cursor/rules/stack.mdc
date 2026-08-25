@@ -1,0 +1,30 @@
+---
+description: Canonical stack for this repo — overrides NestJS/Supabase/Next.js assumptions
+alwaysApply: true
+---
+
+# Stack (source of truth)
+
+This repo is **TanStack Start**, not NestJS, Next.js, or Supabase.
+
+| Concern | Use |
+|---|---|
+| Framework | TanStack Start + TanStack Router (file-based `src/routes/`) |
+| UI | React 19, Tailwind CSS, Radix / shadcn-style `src/components/ui/` |
+| Rich text | TipTap v3 + `@tiptap/markdown` (`src/components/ui/tiptap/`); stores plain markdown |
+| Server logic | TanStack `createServerFn` in `src/fn/` |
+| Data fetching | TanStack Query via `src/queries/` + `src/hooks/` |
+| Database | PostgreSQL + Drizzle ORM (`src/db/`, `src/data-access/`) |
+| Auth | Better Auth (`src/utils/auth.ts`, `src/lib/auth-client.ts`) |
+| Files | Railway Bucket (S3-compatible) via AWS SDK presigned URLs |
+
+## Do not use here
+
+- NestJS modules, controllers, services, DTOs, guards, or DI
+- Supabase client, Auth, or RLS patterns
+- Next.js App Router, `getServerSideProps`, or Next API routes
+- Stripe / Expo / Firebase unless the task explicitly adds them
+
+If a global Cursor user rule conflicts with this file, **follow this file**.
+
+See `CLAUDE.md` and `docs/architecture.md`.

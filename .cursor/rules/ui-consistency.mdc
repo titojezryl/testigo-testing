@@ -1,0 +1,126 @@
+---
+description: TestiGo UI consistency - clean frontend implementation, design system, and UX patterns
+alwaysApply: true
+---
+
+# UI Consistency
+
+When building or changing frontend UI, ship **clean, consistent, minimal code** on the TestiGo token system. Full reference: `docs/design-system.md`. Tokens live in `src/styles/app.css`.
+
+TestiGo is a data-dense QA execution tool: high information density, minimal chrome, tabular scanning, status-first colour. **Light mode only** - there is no `dark:` variant.
+
+## Frontend workflow
+
+1. **Find a similar screen first** - e.g. `src/routes/dashboard/index.tsx`, `src/routes/dashboard/projects/$projectId/index.tsx`, `src/components/projects/project-runs-panel.tsx`.
+2. **Compose before styling** - semantic JSX with existing primitives; add Tailwind last.
+3. **Extract when it repeats** - shared UI to `src/components/`; data wiring to `src/hooks/` or `src/queries/`.
+4. **Cover all states** - loading, empty, error, success, disabled, and mobile layout before finishing.
+
+## Clean implementation
+
+**Keep routes thin.** Routes wire data, auth context, and navigation; presentational UI lives in feature components (`src/components/projects/`, `src/components/documents/`, `src/components/teams/`, `src/components/settings/`).
+
+```tsx
+// BAD - 200-line route with inline markup, fetch, and business logic mixed
+function DashboardHome() {
+  const [data, setData] = useState(null);
+  useEffect(() => { fetch(...).then(setData); }, []);
+  return <div className="rounded-xl border ...">...</div>;
+}
+
+// GOOD - route orchestrates; components render
+function DashboardHome() {
+  const { data, isLoading, isError } = useMyProjects();
+  return (
+    <Page>
+      <PageHeader title="Projects" />
+      <ProjectList projects={data} isLoading={isLoading} isError={isError} />
+    </Page>
+  );
+}
+```
+
+**Prefer composition over one-off markup.**
+
+| Use | For |
+|-----|-----|
+| `Page` | Page shell - renders `<main id="main-content">` at `max-w-app`; `fullWidth` for full-bleed |
+| `PageHeader` | Breadcrumbs + `h1` + description + actions + meta, in one component |
+| `Panel` + `PanelHeader` / `PanelTitle` / `PanelDescription` / `PanelToolbar` / `PanelContent` / `PanelFooter` | Workspace surfaces (preferred over raw `div`s) |
+| `Card` | Generic shadcn card when `Panel` is not the right surface |
+| `StatusPill` / `CaseStatusPill` | Any status - always icon plus text |
+| `StatCard` | Headline numbers |
+| `DataTable` (`TableWrapper`, `Table`, `TableHead`, ...) | Tabular data with sticky header and horizontal overflow |
+| `Skeleton` / `SkeletonRows` / `SkeletonPanel` | Loading states |
+| `EmptyState` / `ErrorState` | No-data and failed-query views |
+| `AuthLayout` + `authFieldsClass` / `authSubmitClass` | Sign-in, sign-up, invite, unauthenticated |
+| `ProjectPageSkeleton` / `ProjectAccessDenied` | Project sub-route loading and access-denied states |
+| `ConfirmDeleteDialog` | Destructive confirmations |
+
+**Keep components small and readable.**
+
+- One clear responsibility per file; split large shells into subcomponents (see `src/components/documents/checklist/`).
+- Use `interface` for props; name handlers `handleClick`, `handleSubmit`.
+- Use `cn()` for conditional classes - never template-literal class soup in JSX.
+- Colocate small helpers and static config arrays at the top of the file, or in `~/lib/`.
+- No dead code, commented-out UI, or placeholder copy in shipped work.
+
+## Styling
+
+- Tailwind utilities in `className` only - no `<style>`, CSS modules, or component stylesheets.
+- Add a token to `src/styles/app.css` `@theme` when a value repeats; never hardcode hex or arbitrary sizes.
+- **Colour:** navy `navy-800 #072745` is the primary ink and action colour; lime `lime-500 #86D44D` is the accent. Lime is 1.8:1 on white, so it can never be text on white and white text can never sit on it - use lime as a fill with navy text, the focus ring, the active nav indicator, progress fill, or `pass` status. `lime-700` is the only green safe as text.
+- **Surfaces:** `bg-background` canvas, `bg-card` panels, `bg-secondary` inset, `bg-muted` toolbars, `border-border` hairlines, `text-muted-foreground` metadata.
+- **Status:** `pass` / `fail` / `blocked` / `info`, each with text, `-solid`, `-subtle`, and `-border` tokens. Never signal status with colour alone.
+- **Radii:** `rounded-lg` (10px) for controls, `rounded-xl` (14px) for cards, panels, and overlays.
+- **Elevation:** `shadow-panel` resting, `shadow-raised` hover, `shadow-overlay` dialogs. Nothing heavier.
+- **Typography:** Inter (`font-sans`, applied on `body`) for UI; `.font-metric` (JetBrains Mono + tabular-nums) for case IDs, branch names, SHAs, counters, and timestamps.
+- **Motion:** `duration-150` or `duration-200` only. No glassmorphism, gradients, blobs, or decorative animation.
+
+## Data & interaction
+
+- **Server state:** TanStack Query via `src/queries/` and `src/hooks/` - not ad-hoc `useEffect` + `fetch` in components.
+- **Forms:** `react-hook-form` + `zod` + `FormField` / `FormMessage`; disable fields while `isPending`.
+- **Mutations:** show `Loader2` + a changed label on submit; `toast.success` / `toast.error` from `sonner`.
+- **Lists:** explicit loading (`SkeletonRows`), empty (`EmptyState`), and error (`ErrorState`) UI - mirror `project-runs-panel.tsx`.
+- **Icons:** `lucide-react` - `h-4 w-4` default, `h-3 w-3` in compact actions; decorative icons get `aria-hidden="true"`.
+
+## Layout & responsive
+
+- Page shell: `Page`, which applies `mx-auto max-w-app px-5 py-6 sm:px-8 lg:py-10`.
+- Sections: `mb-8` or `mb-10`; card grids: `grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3`.
+- Header rows: `flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`.
+- Mobile-first; collapse multi-column layouts below `lg`; touch targets at least 36px (`size="icon-sm"`), preferring 40px.
+- The dashboard sidebar is hidden below `md` and replaced by a `Sheet` from the topbar.
+- Verify at 375 / 768 / 1024 / 1440.
+
+## Accessibility
+
+- Semantic HTML (`main`, `header`, `nav`, `button` vs `div` clicks).
+- One `h1` per page (`PageTitle` inside `PageHeader`), `h2` for panels (`PanelTitle`), `h3` below. Never skip a level.
+- Focus is one global treatment (`outline-ring outline-2 outline-offset-2`) applied in the base layer - never remove it.
+- Icon-only buttons need an `aria-label`; loading regions need `role="status"` and an `sr-only` label.
+- Status must include text or an icon - never colour alone.
+- Wide tables go inside `TableWrapper`.
+- Dialogs: use `Dialog` / `AlertDialog` with a clear title and description.
+
+## Anti-patterns (avoid)
+
+- Hardcoded hex, `rounded-[10px]`, `max-w-[1200px]`, `text-[11px]` - the tokens exist.
+- Off-brand Tailwind palettes (`emerald-*`, `red-*`, raw `slate-*`) instead of navy, lime, and the semantic and status tokens.
+- Any `dark:` utility.
+- Copy-pasting 10+ Tailwind classes across files instead of reusing `Panel`, `Button`, or a component.
+- Business logic, auth checks, or DB calls inside presentational components.
+- Giant monolithic route files when a feature folder would clarify structure.
+- `dangerouslySetInnerHTML` for user content.
+- Inventing a new button or card style when `Button` variants or `Panel` already fit.
+
+## Done checklist
+
+- [ ] Matched an existing page/component pattern before writing new UI
+- [ ] Route is thin; UI lives in reusable components
+- [ ] Loading, empty, error, hover, focus, and disabled states handled
+- [ ] Navy/lime tokens only; no hardcoded colours, no `dark:`, no heavy shadows
+- [ ] Heading levels sequential; icon-only buttons labelled
+- [ ] Mobile and desktop layouts verified
+- [ ] No unnecessary abstraction - code is as simple as the feature allows

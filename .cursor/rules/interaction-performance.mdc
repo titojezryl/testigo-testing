@@ -1,0 +1,41 @@
+---
+description: Prioritize interaction performance on data-dense lists and editors — avoid click hang patterns
+alwaysApply: true
+---
+
+# Interaction performance (priority)
+
+TestiGo screens are data-dense (checklists, defects, PRs). **Treat click/keystroke lag as a bug.** Optimize before shipping list UIs, mark buttons, and TipTap dialogs.
+
+Reference fix: checklist page (`DocumentChecklistViewer`, `CaseTable`) and `docs/qa/checklist-marking.test-cases.md`.
+
+## Hard rules
+
+1. **One layout tree** — Do not mount mobile *and* desktop variants and hide one with `lg:hidden` / `hidden lg:block`. CSS hide still runs React work. Use `useMediaQuery` (`~/hooks/useMediaQuery`, Tailwind `lg` = `(min-width: 64rem)`) when the breakpoint changes *what* is rendered.
+
+```tsx
+// ❌ BAD — both trees reconcile on every mark click
+<>
+  <div className="lg:hidden">{rows.map(...)}</div>
+  <div className="hidden lg:block"><DesktopTable rows={rows} /></div>
+</>
+
+// ✅ GOOD
+const isDesktop = useMediaQuery("(min-width: 64rem)");
+return isDesktop ? <DesktopTable rows={rows} /> : <StackedList rows={rows} />;
+```
+
+2. **Keep hot paths cheap** — Collapsed/list previews must not run `ReactMarkdown` or TipTap. Use plain text (`plainTextFromMarkdown` / truncate). Parse once and cache (`getCaseBodySections`), not per row per click.
+
+3. **Isolate expensive editors** — TipTap/`MarkdownEditor` drafts stay **inside** the dialog or expanded row. Do not lift every keystroke into a parent that owns the full case list. Mount card feedback editors only when opened, not N editors at once.
+
+4. **Stabilize list updates** — Batch related state (e.g. mark + `"pending"` save) in one event so one click ≠ two full-list commits. `useMemo` row data; `memo` rows with **data** equality (`mark`, `saveState`, ids) so changing one row does not re-render every row. Prefer a shared `EMPTY_MARK` constant over `?? { status: null, feedback: "" }` each render.
+
+5. **Precompute permissions** — Build a `Map<caseId, { canMark, reason }>` once; do not rescan assignments inside every row mapper on each click.
+
+## Done check
+
+- [ ] A mark/filter click on a 20+ row list does not hitch the toolbar
+- [ ] Typing in Add/Edit dialogs does not re-render the list behind the overlay
+- [ ] Only one responsive layout is mounted
+- [ ] No `ReactMarkdown` / TipTap on the collapsed scan path

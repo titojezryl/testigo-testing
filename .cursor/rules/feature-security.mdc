@@ -1,0 +1,65 @@
+---
+description: Secure feature work for routes, server functions, and data-access (auth, validation, IDOR, PII, XSS)
+globs: src/routes/**/*,src/fn/**/*,src/data-access/**/*
+alwaysApply: false
+---
+
+# Feature Security (Routes + Server/API)
+
+When creating or updating features in routes, `src/fn`, or `src/data-access`, treat UI hiding as UX only — **enforce security on the server**.
+
+## Auth / session
+
+- Protect sensitive server functions with `authenticatedMiddleware` (or `assertAdminMiddleware` when admin-only).
+- Never rely on client-only checks (`if (!user) return`) as the sole guard for data or mutations.
+- Route loaders/guards that redirect unauthenticated users are complementary; mutations still need server auth.
+
+```typescript
+// ❌ BAD — callable without a real session check on the server
+export const updateProfileFn = createServerFn({ method: "POST" }).handler(...)
+
+// ✅ GOOD
+export const updateProfileFn = createServerFn({ method: "POST" })
+  .middleware([authenticatedMiddleware])
+  .handler(...)
+```
+
+## Input validation
+
+- Validate all server-fn / API inputs with Zod (or equivalent) before use.
+- Never trust client body, query, or path params — including IDs, roles, flags, and prices.
+- Reject unknown fields when practical; coerce types explicitly.
+
+## IDOR / hidden controls
+
+- Authorize **ownership or role** on the server for every read/write by resource id.
+- Do not assume “user can’t see the button” or “id comes from our UI” means the request is safe.
+- In data-access, scope queries by `userId` (or verified admin) from session context — not from client-supplied user ids unless they match the session after an explicit authz check.
+
+```typescript
+// ❌ BAD — updates any user’s row if the client sends another userId
+await db.update(user).set(data).where(eq(user.id, input.userId))
+
+// ✅ GOOD — use session userId from middleware context
+await db.update(user).set(data).where(eq(user.id, context.userId))
+```
+
+## Secrets & PII
+
+- Never put secrets, API keys, or service credentials in route/client bundles.
+- Return only fields the client needs; strip password hashes, tokens, internal flags, and unnecessary PII from responses.
+- Log safely: no passwords, session tokens, or full payment payloads.
+
+## XSS / unsafe HTML (frontend routes)
+
+- Do not render unsanitized user or third-party HTML (`dangerouslySetInnerHTML`) unless sanitized and necessary.
+- Prefer text content / safe components for user-generated strings.
+- Encode/escape URLs and attributes derived from user input; validate URL schemes (`https:` only when linking out).
+
+## Checklist before shipping a feature
+
+1. Can an unauthenticated caller hit this server fn?
+2. Can user A read or mutate user B’s data by changing an id?
+3. Is every input validated on the server?
+4. Does the response leak fields the UI does not need?
+5. Is any user content rendered as raw HTML?

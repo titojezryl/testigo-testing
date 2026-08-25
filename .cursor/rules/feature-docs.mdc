@@ -1,0 +1,61 @@
+---
+description: Keep product, engineer, and QA docs in sync when platform features or processes change
+alwaysApply: true
+---
+
+# Platform docs sync
+
+When you change a **feature** or **process** (roles, invites, cycles, defects, GitHub, merge gates, auth, UI flows), update **every affected doc** in the same change. Do not ship code that leaves FAQ/onboarding/manuals/PRD describing the old behavior.
+
+Ground truth is always the code (`src/lib/permissions.ts`, `src/fn/`, `src/data-access/`, routes). Docs must match what the app does — never invent flows.
+
+## Doc surfaces (check each)
+
+| Surface | Path | Update when… |
+|---------|------|----------------|
+| **PRD** | `docs/PRD.md` | Product intent, personas, journeys, scope, shipped capabilities, or routes change |
+| FAQ | `docs/faq.md` | Access, roles, defects, PRs, troubleshooting answers change |
+| Onboarding (in-app `/faq` Overview) | `docs/onboarding.md` | First-day path, prerequisites, lifecycle, pitfalls, rollout |
+| Role manuals | `docs/user-manual/*.md` | Role playbooks or capability cheat sheet change |
+| Topic docs | `docs/<topic>.md` | Deep dive (e.g. `projects.md`, `defects.md`, `github.md`, `authentication.md`) |
+| Engineer feature notes | `docs/` as needed | New routes/server fns/ownership (paths + auth) |
+| QA cases | `docs/qa/<feature>.test-cases.md` | Behavior QA must verify (required for new features — see `feature-testing` rule) |
+| README / CLAUDE | `README.md`, `CLAUDE.md` | Setup, admin bootstrap, or doc index links change |
+
+In-app help is Vite `?raw` of these markdown files — stale docs = wrong `/faq` and `/user-manual`.
+
+## Process map — what usually needs a sweep
+
+| Change type | Typical docs |
+|-------------|--------------|
+| Access / teams / invites / sign-up | `PRD.md`, `faq.md`, `onboarding.md`, `projects.md`, `authentication.md`, team-invite QA |
+| Roles / capabilities | `PRD.md`, `faq.md`, `permissions.md`, `user-manual/*`, role QA |
+| Defects / reject / close / `Fixes` keywords | `PRD.md`, `faq.md`, `onboarding.md`, `defects.md`, `qa-lifecycle.md`, `user-manual/dev.md` |
+| PR approve / merge / QA docs gate | `PRD.md`, `faq.md`, `onboarding.md`, `github.md`, PR approval QA |
+| Cycles / marking / branches | `PRD.md`, `onboarding.md`, `run-sessions.md`, `case-marks.md`, `branches.md`, matching QA |
+| New / removed routes or journeys | `PRD.md` (routes + user journeys), FAQ/onboarding entry points |
+| UI copy that docs quote | Same FAQ/onboarding/PRD lines that describe that label |
+
+## Rules
+
+1. **Same PR / same task** — do not defer “docs later.”
+2. **Update the PRD** — keep `docs/PRD.md` aligned with shipped product (goals, personas, journeys, scope, route map, capability status). Drop or rewrite sections that describe removed features.
+3. **Prefer update over new file** — add `docs/<feature>.md` only when no topic fits.
+4. **Remove dead paths** — e.g. deleted routes (`/read`), deprecated project invites — in PRD, FAQ, and onboarding.
+5. **Cross-link, don’t fork** — one source of truth; FAQ stays short and points to topic docs; PRD stays the product contract.
+6. **Align QA cases** — if Overview/FAQ expected copy changes, update `docs/qa/faq-onboarding.test-cases.md` (or the feature’s QA file).
+
+```markdown
+<!-- ❌ BAD — code changed, FAQ/PRD still say “invite from Members” or `/read` -->
+<!-- ✅ GOOD — PRD + faq + onboarding + projects.md + QA cases all say team invite → Super Admin links team -->
+```
+
+## Done check
+
+- [ ] `docs/PRD.md` reflects current product intent, journeys, scope, and routes
+- [ ] User-facing behavior change → FAQ and/or onboarding still accurate
+- [ ] Role impact → matching `user-manual/` tab(s) and `permissions.md` if needed
+- [ ] Topic doc exists and matches code (paths, keywords, statuses)
+- [ ] `docs/qa/*.test-cases.md` covers new/changed testable behavior
+- [ ] No leftover references to removed UI, routes, or processes
+

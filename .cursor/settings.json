@@ -1,0 +1,7 @@
+{
+  "plugins": {
+    "supabase": {
+      "enabled": false // disable supabase plugin change if you want to use supabase
+    }
+  }
+}

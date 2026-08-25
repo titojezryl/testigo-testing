@@ -1,0 +1,29 @@
+---
+description: Layered architecture for TanStack Start + Drizzle
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Architecture
+
+Dependency chain:
+
+```
+Routes → Components → Hooks → Queries → Fn → Data Access → DB
+```
+
+- **Routes** (`src/routes/`): routing, loaders, `beforeLoad` auth checks
+- **Components** (`src/components/`): UI and interaction only
+- **Hooks** (`src/hooks/`): wrap mutations/queries for the UI
+- **Queries** (`src/queries/`): TanStack Query `queryOptions`
+- **Fn** (`src/fn/`): `createServerFn`, Zod validation, auth middleware
+- **Data access** (`src/data-access/`): Drizzle queries only
+
+## Rules
+
+- Keep server functions thin: validate → call data-access → return
+- Put DB access in `src/data-access/`, not in routes or components
+- Protect mutations with `authenticatedMiddleware` (or equivalent)
+- Validate external input with Zod on server functions
+- Prefer TypeScript inference from Drizzle schema; avoid `any`
+- Update `docs/*.md` when auth, schema, env vars, or architecture change

@@ -1,0 +1,40 @@
+---
+description: React/TypeScript frontend conventions — always use ui-ux-pro-max for UI/UX work
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend conventions
+
+## UI/UX Pro Max (required)
+
+When planning, building, reviewing, or fixing **UI/UX** in `src/` (pages, components, layout, forms, tables, dialogs, motion, a11y), **always** use the project skill before coding:
+
+1. **Read** [`.cursor/skills/ui-ux-pro-max/SKILL.md`](../skills/ui-ux-pro-max/SKILL.md) and follow its workflow.
+2. **Run** the skill CLI from the repo root (Python required):
+
+```bash
+python .cursor/skills/ui-ux-pro-max/scripts/search.py "qa saas dashboard checklist data-dense" --design-system -p "TestiGo"
+python .cursor/skills/ui-ux-pro-max/scripts/search.py "<topic>" --domain ux
+python .cursor/skills/ui-ux-pro-max/scripts/search.py "<topic>" --stack react
+# or --stack shadcn when using src/components/ui/
+```
+
+3. Apply recommendations for accessibility, touch targets, layout, typography rhythm, and interaction patterns.
+4. **Do not override** TestiGo brand tokens or light-only UI — `ui-consistency` / `docs/design-system.md` / `src/styles/app.css` win over skill palette/style suggestions (no `dark:`, no off-brand purple/cream defaults).
+
+Skip the skill only for pure non-UI changes (e.g. types, query keys, server fn wiring with no markup).
+
+## Code conventions
+
+- Functional components; named exports preferred
+- TypeScript; prefer `interface` for object shapes
+- Zod for shared validation; infer types from schemas when practical
+- Tailwind for styling; reuse existing `ui/` primitives
+- Event handlers use a `handle` prefix (`handleClick`, `handleSubmit`)
+- Early returns and guard clauses over deep nesting
+- Accessible interactive elements (`aria-label`, keyboard support where needed)
+- Auth on the client via Better Auth `authClient`, not custom session hacks
+- Uploads via existing presigned-URL helpers — not direct server multipart unless required
+
+Follow existing project patterns in `src/` over generic React/Next tutorials.
