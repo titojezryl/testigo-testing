@@ -135,6 +135,11 @@ function Home() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
+            <Link to="/portfolio">
+              <Button size="lg" variant="outline" className="min-w-[140px]">
+                Sample portfolio
+              </Button>
+            </Link>
             <Button 
               size="lg" 
               variant="outline" 

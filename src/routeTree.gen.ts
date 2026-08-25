@@ -9,39 +9,45 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ForbiddenRouteImport } from './routes/forbidden'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ForbiddenRouteImport } from './routes/forbidden'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as UserUsersIndexRouteImport } from './routes/user/users/index'
-import { Route as UserSettingsIndexRouteImport } from './routes/user/settings/index'
-import { Route as UserProfileIndexRouteImport } from './routes/user/profile/index'
-import { Route as UserDashboardIndexRouteImport } from './routes/user/dashboard/index'
-import { Route as UserAnalyticsIndexRouteImport } from './routes/user/analytics/index'
-import { Route as Super_adminUsersIndexRouteImport } from './routes/super_admin/users/index'
-import { Route as Super_adminSettingsIndexRouteImport } from './routes/super_admin/settings/index'
-import { Route as Super_adminProfileIndexRouteImport } from './routes/super_admin/profile/index'
-import { Route as Super_adminDashboardIndexRouteImport } from './routes/super_admin/dashboard/index'
-import { Route as Super_adminAnalyticsIndexRouteImport } from './routes/super_admin/analytics/index'
-import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
-import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/settings/index'
-import { Route as DashboardProfileIndexRouteImport } from './routes/dashboard/profile/index'
-import { Route as DashboardAnalyticsIndexRouteImport } from './routes/dashboard/analytics/index'
-import { Route as AuthVerifyMfaIndexRouteImport } from './routes/auth/verify-mfa/index'
-import { Route as AuthSignupIndexRouteImport } from './routes/auth/signup/index'
-import { Route as AuthSigninIndexRouteImport } from './routes/auth/signin/index'
-import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
-import { Route as AdminProfileIndexRouteImport } from './routes/admin/profile/index'
-import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboard/index'
 import { Route as AdminAnalyticsIndexRouteImport } from './routes/admin/analytics/index'
+import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboard/index'
+import { Route as AdminProfileIndexRouteImport } from './routes/admin/profile/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
+import { Route as AuthSigninIndexRouteImport } from './routes/auth/signin/index'
+import { Route as AuthSignupIndexRouteImport } from './routes/auth/signup/index'
+import { Route as AuthVerifyMfaIndexRouteImport } from './routes/auth/verify-mfa/index'
+import { Route as DashboardAnalyticsIndexRouteImport } from './routes/dashboard/analytics/index'
+import { Route as DashboardProfileIndexRouteImport } from './routes/dashboard/profile/index'
+import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/settings/index'
+import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
+import { Route as Super_adminAnalyticsIndexRouteImport } from './routes/super_admin/analytics/index'
+import { Route as Super_adminDashboardIndexRouteImport } from './routes/super_admin/dashboard/index'
+import { Route as Super_adminProfileIndexRouteImport } from './routes/super_admin/profile/index'
+import { Route as Super_adminSettingsIndexRouteImport } from './routes/super_admin/settings/index'
+import { Route as Super_adminUsersIndexRouteImport } from './routes/super_admin/users/index'
+import { Route as UserAnalyticsIndexRouteImport } from './routes/user/analytics/index'
+import { Route as UserDashboardIndexRouteImport } from './routes/user/dashboard/index'
+import { Route as UserProfileIndexRouteImport } from './routes/user/profile/index'
+import { Route as UserSettingsIndexRouteImport } from './routes/user/settings/index'
+import { Route as UserUsersIndexRouteImport } from './routes/user/users/index'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForbiddenRoute = ForbiddenRouteImport.update({
   id: '/forbidden',
   path: '/forbidden',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -49,34 +55,76 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserUsersIndexRoute = UserUsersIndexRouteImport.update({
-  id: '/user/users/',
-  path: '/user/users/',
+const AdminAnalyticsIndexRoute = AdminAnalyticsIndexRouteImport.update({
+  id: '/admin/analytics/',
+  path: '/admin/analytics/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserSettingsIndexRoute = UserSettingsIndexRouteImport.update({
-  id: '/user/settings/',
-  path: '/user/settings/',
+const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
+  id: '/admin/dashboard/',
+  path: '/admin/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
-  id: '/user/profile/',
-  path: '/user/profile/',
+const AdminProfileIndexRoute = AdminProfileIndexRouteImport.update({
+  id: '/admin/profile/',
+  path: '/admin/profile/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserDashboardIndexRoute = UserDashboardIndexRouteImport.update({
-  id: '/user/dashboard/',
-  path: '/user/dashboard/',
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
+  id: '/admin/users/',
+  path: '/admin/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserAnalyticsIndexRoute = UserAnalyticsIndexRouteImport.update({
-  id: '/user/analytics/',
-  path: '/user/analytics/',
+const AuthSigninIndexRoute = AuthSigninIndexRouteImport.update({
+  id: '/auth/signin/',
+  path: '/auth/signin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Super_adminUsersIndexRoute = Super_adminUsersIndexRouteImport.update({
-  id: '/super_admin/users/',
-  path: '/super_admin/users/',
+const AuthSignupIndexRoute = AuthSignupIndexRouteImport.update({
+  id: '/auth/signup/',
+  path: '/auth/signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthVerifyMfaIndexRoute = AuthVerifyMfaIndexRouteImport.update({
+  id: '/auth/verify-mfa/',
+  path: '/auth/verify-mfa/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAnalyticsIndexRoute = DashboardAnalyticsIndexRouteImport.update({
+  id: '/dashboard/analytics/',
+  path: '/dashboard/analytics/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProfileIndexRoute = DashboardProfileIndexRouteImport.update({
+  id: '/dashboard/profile/',
+  path: '/dashboard/profile/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
+  id: '/dashboard/settings/',
+  path: '/dashboard/settings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
+  id: '/dashboard/users/',
+  path: '/dashboard/users/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Super_adminAnalyticsIndexRoute =
+  Super_adminAnalyticsIndexRouteImport.update({
+    id: '/super_admin/analytics/',
+    path: '/super_admin/analytics/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Super_adminDashboardIndexRoute =
+  Super_adminDashboardIndexRouteImport.update({
+    id: '/super_admin/dashboard/',
+    path: '/super_admin/dashboard/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Super_adminProfileIndexRoute = Super_adminProfileIndexRouteImport.update({
+  id: '/super_admin/profile/',
+  path: '/super_admin/profile/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Super_adminSettingsIndexRoute =
@@ -85,82 +133,41 @@ const Super_adminSettingsIndexRoute =
     path: '/super_admin/settings/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Super_adminProfileIndexRoute = Super_adminProfileIndexRouteImport.update({
-  id: '/super_admin/profile/',
-  path: '/super_admin/profile/',
+const Super_adminUsersIndexRoute = Super_adminUsersIndexRouteImport.update({
+  id: '/super_admin/users/',
+  path: '/super_admin/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Super_adminDashboardIndexRoute =
-  Super_adminDashboardIndexRouteImport.update({
-    id: '/super_admin/dashboard/',
-    path: '/super_admin/dashboard/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Super_adminAnalyticsIndexRoute =
-  Super_adminAnalyticsIndexRouteImport.update({
-    id: '/super_admin/analytics/',
-    path: '/super_admin/analytics/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
-  id: '/dashboard/users/',
-  path: '/dashboard/users/',
+const UserAnalyticsIndexRoute = UserAnalyticsIndexRouteImport.update({
+  id: '/user/analytics/',
+  path: '/user/analytics/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
-  id: '/dashboard/settings/',
-  path: '/dashboard/settings/',
+const UserDashboardIndexRoute = UserDashboardIndexRouteImport.update({
+  id: '/user/dashboard/',
+  path: '/user/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardProfileIndexRoute = DashboardProfileIndexRouteImport.update({
-  id: '/dashboard/profile/',
-  path: '/dashboard/profile/',
+const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
+  id: '/user/profile/',
+  path: '/user/profile/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardAnalyticsIndexRoute = DashboardAnalyticsIndexRouteImport.update({
-  id: '/dashboard/analytics/',
-  path: '/dashboard/analytics/',
+const UserSettingsIndexRoute = UserSettingsIndexRouteImport.update({
+  id: '/user/settings/',
+  path: '/user/settings/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthVerifyMfaIndexRoute = AuthVerifyMfaIndexRouteImport.update({
-  id: '/auth/verify-mfa/',
-  path: '/auth/verify-mfa/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthSignupIndexRoute = AuthSignupIndexRouteImport.update({
-  id: '/auth/signup/',
-  path: '/auth/signup/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthSigninIndexRoute = AuthSigninIndexRouteImport.update({
-  id: '/auth/signin/',
-  path: '/auth/signin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
-  id: '/admin/users/',
-  path: '/admin/users/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminProfileIndexRoute = AdminProfileIndexRouteImport.update({
-  id: '/admin/profile/',
-  path: '/admin/profile/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
-  id: '/admin/dashboard/',
-  path: '/admin/dashboard/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminAnalyticsIndexRoute = AdminAnalyticsIndexRouteImport.update({
-  id: '/admin/analytics/',
-  path: '/admin/analytics/',
+const UserUsersIndexRoute = UserUsersIndexRouteImport.update({
+  id: '/user/users/',
+  path: '/user/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/forbidden': typeof ForbiddenRoute
+  '/portfolio': typeof PortfolioRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forbidden': typeof ForbiddenRoute
+  '/portfolio': typeof PortfolioRoute
   '/dashboard': typeof DashboardIndexRoute
   '/admin/analytics': typeof AdminAnalyticsIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
@@ -214,6 +222,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/forbidden': typeof ForbiddenRoute
+  '/portfolio': typeof PortfolioRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
@@ -242,6 +251,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/forbidden'
+    | '/portfolio'
     | '/dashboard/'
     | '/admin/analytics/'
     | '/admin/dashboard/'
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/forbidden'
+    | '/portfolio'
     | '/dashboard'
     | '/admin/analytics'
     | '/admin/dashboard'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/forbidden'
+    | '/portfolio'
     | '/dashboard/'
     | '/admin/analytics/'
     | '/admin/dashboard/'
@@ -321,6 +333,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ForbiddenRoute: typeof ForbiddenRoute
+  PortfolioRoute: typeof PortfolioRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   AdminAnalyticsIndexRoute: typeof AdminAnalyticsIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
@@ -347,6 +360,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forbidden': {
       id: '/forbidden'
       path: '/forbidden'
@@ -354,11 +374,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForbiddenRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -368,137 +388,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user/users/': {
-      id: '/user/users/'
-      path: '/user/users'
-      fullPath: '/user/users/'
-      preLoaderRoute: typeof UserUsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user/settings/': {
-      id: '/user/settings/'
-      path: '/user/settings'
-      fullPath: '/user/settings/'
-      preLoaderRoute: typeof UserSettingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user/profile/': {
-      id: '/user/profile/'
-      path: '/user/profile'
-      fullPath: '/user/profile/'
-      preLoaderRoute: typeof UserProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user/dashboard/': {
-      id: '/user/dashboard/'
-      path: '/user/dashboard'
-      fullPath: '/user/dashboard/'
-      preLoaderRoute: typeof UserDashboardIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user/analytics/': {
-      id: '/user/analytics/'
-      path: '/user/analytics'
-      fullPath: '/user/analytics/'
-      preLoaderRoute: typeof UserAnalyticsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/super_admin/users/': {
-      id: '/super_admin/users/'
-      path: '/super_admin/users'
-      fullPath: '/super_admin/users/'
-      preLoaderRoute: typeof Super_adminUsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/super_admin/settings/': {
-      id: '/super_admin/settings/'
-      path: '/super_admin/settings'
-      fullPath: '/super_admin/settings/'
-      preLoaderRoute: typeof Super_adminSettingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/super_admin/profile/': {
-      id: '/super_admin/profile/'
-      path: '/super_admin/profile'
-      fullPath: '/super_admin/profile/'
-      preLoaderRoute: typeof Super_adminProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/super_admin/dashboard/': {
-      id: '/super_admin/dashboard/'
-      path: '/super_admin/dashboard'
-      fullPath: '/super_admin/dashboard/'
-      preLoaderRoute: typeof Super_adminDashboardIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/super_admin/analytics/': {
-      id: '/super_admin/analytics/'
-      path: '/super_admin/analytics'
-      fullPath: '/super_admin/analytics/'
-      preLoaderRoute: typeof Super_adminAnalyticsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/users/': {
-      id: '/dashboard/users/'
-      path: '/dashboard/users'
-      fullPath: '/dashboard/users/'
-      preLoaderRoute: typeof DashboardUsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/settings/': {
-      id: '/dashboard/settings/'
-      path: '/dashboard/settings'
-      fullPath: '/dashboard/settings/'
-      preLoaderRoute: typeof DashboardSettingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/profile/': {
-      id: '/dashboard/profile/'
-      path: '/dashboard/profile'
-      fullPath: '/dashboard/profile/'
-      preLoaderRoute: typeof DashboardProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/analytics/': {
-      id: '/dashboard/analytics/'
-      path: '/dashboard/analytics'
-      fullPath: '/dashboard/analytics/'
-      preLoaderRoute: typeof DashboardAnalyticsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/verify-mfa/': {
-      id: '/auth/verify-mfa/'
-      path: '/auth/verify-mfa'
-      fullPath: '/auth/verify-mfa/'
-      preLoaderRoute: typeof AuthVerifyMfaIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/signup/': {
-      id: '/auth/signup/'
-      path: '/auth/signup'
-      fullPath: '/auth/signup/'
-      preLoaderRoute: typeof AuthSignupIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/signin/': {
-      id: '/auth/signin/'
-      path: '/auth/signin'
-      fullPath: '/auth/signin/'
-      preLoaderRoute: typeof AuthSigninIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/users/': {
-      id: '/admin/users/'
-      path: '/admin/users'
-      fullPath: '/admin/users/'
-      preLoaderRoute: typeof AdminUsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/profile/': {
-      id: '/admin/profile/'
-      path: '/admin/profile'
-      fullPath: '/admin/profile/'
-      preLoaderRoute: typeof AdminProfileIndexRouteImport
+    '/admin/analytics/': {
+      id: '/admin/analytics/'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics/'
+      preLoaderRoute: typeof AdminAnalyticsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard/': {
@@ -508,11 +402,137 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/analytics/': {
-      id: '/admin/analytics/'
-      path: '/admin/analytics'
-      fullPath: '/admin/analytics/'
-      preLoaderRoute: typeof AdminAnalyticsIndexRouteImport
+    '/admin/profile/': {
+      id: '/admin/profile/'
+      path: '/admin/profile'
+      fullPath: '/admin/profile/'
+      preLoaderRoute: typeof AdminProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/admin/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signin/': {
+      id: '/auth/signin/'
+      path: '/auth/signin'
+      fullPath: '/auth/signin/'
+      preLoaderRoute: typeof AuthSigninIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signup/': {
+      id: '/auth/signup/'
+      path: '/auth/signup'
+      fullPath: '/auth/signup/'
+      preLoaderRoute: typeof AuthSignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/verify-mfa/': {
+      id: '/auth/verify-mfa/'
+      path: '/auth/verify-mfa'
+      fullPath: '/auth/verify-mfa/'
+      preLoaderRoute: typeof AuthVerifyMfaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/analytics/': {
+      id: '/dashboard/analytics/'
+      path: '/dashboard/analytics'
+      fullPath: '/dashboard/analytics/'
+      preLoaderRoute: typeof DashboardAnalyticsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/profile/': {
+      id: '/dashboard/profile/'
+      path: '/dashboard/profile'
+      fullPath: '/dashboard/profile/'
+      preLoaderRoute: typeof DashboardProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/settings/': {
+      id: '/dashboard/settings/'
+      path: '/dashboard/settings'
+      fullPath: '/dashboard/settings/'
+      preLoaderRoute: typeof DashboardSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/users/': {
+      id: '/dashboard/users/'
+      path: '/dashboard/users'
+      fullPath: '/dashboard/users/'
+      preLoaderRoute: typeof DashboardUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super_admin/analytics/': {
+      id: '/super_admin/analytics/'
+      path: '/super_admin/analytics'
+      fullPath: '/super_admin/analytics/'
+      preLoaderRoute: typeof Super_adminAnalyticsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super_admin/dashboard/': {
+      id: '/super_admin/dashboard/'
+      path: '/super_admin/dashboard'
+      fullPath: '/super_admin/dashboard/'
+      preLoaderRoute: typeof Super_adminDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super_admin/profile/': {
+      id: '/super_admin/profile/'
+      path: '/super_admin/profile'
+      fullPath: '/super_admin/profile/'
+      preLoaderRoute: typeof Super_adminProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super_admin/settings/': {
+      id: '/super_admin/settings/'
+      path: '/super_admin/settings'
+      fullPath: '/super_admin/settings/'
+      preLoaderRoute: typeof Super_adminSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super_admin/users/': {
+      id: '/super_admin/users/'
+      path: '/super_admin/users'
+      fullPath: '/super_admin/users/'
+      preLoaderRoute: typeof Super_adminUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/analytics/': {
+      id: '/user/analytics/'
+      path: '/user/analytics'
+      fullPath: '/user/analytics/'
+      preLoaderRoute: typeof UserAnalyticsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/dashboard/': {
+      id: '/user/dashboard/'
+      path: '/user/dashboard'
+      fullPath: '/user/dashboard/'
+      preLoaderRoute: typeof UserDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/profile/': {
+      id: '/user/profile/'
+      path: '/user/profile'
+      fullPath: '/user/profile/'
+      preLoaderRoute: typeof UserProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/settings/': {
+      id: '/user/settings/'
+      path: '/user/settings'
+      fullPath: '/user/settings/'
+      preLoaderRoute: typeof UserSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/users/': {
+      id: '/user/users/'
+      path: '/user/users'
+      fullPath: '/user/users/'
+      preLoaderRoute: typeof UserUsersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -521,6 +541,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ForbiddenRoute: ForbiddenRoute,
+  PortfolioRoute: PortfolioRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   AdminAnalyticsIndexRoute: AdminAnalyticsIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
