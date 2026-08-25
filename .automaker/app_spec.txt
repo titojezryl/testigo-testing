@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_specification>
+  <project_name>automaker-starter-kit</project_name>
+
+  <overview>
+    A frontend-only React application built with TanStack Router for client-side routing, designed to consume external APIs through a centralized service layer. The project follows a clean architecture pattern (Routes → Components → Hooks → API Service) that provides separation between UI logic and data fetching while maintaining simplicity and developer productivity. It enables static deployment to CDNs while integrating seamlessly with existing backend services, authentication providers, and storage services without the complexity of server-side rendering or full-stack meta-frameworks.
+  </overview>
+
+  <technology_stack>
+    <technology>TanStack Router v1.136+ (client-side routing)</technology>
+    <technology>TanStack Query v5.90+ (server state management)</technology>
+    <technology>React v19.2.0</technology>
+    <technology>TypeScript v5.9.3</technology>
+    <technology>Vite v7.2.4 (build tool)</technology>
+    <technology>Tailwind CSS v4.1.17</technology>
+    <technology>Radix UI components (@radix-ui/react-*)</technology>
+    <technology>Axios v1.13.4 (HTTP client with interceptors)</technology>
+    <technology>React Hook Form v7.66.1</technology>
+    <technology>Zod v4.1.12 (form validation)</technology>
+    <technology>@anthropic-ai/sdk v0.71.2 (AI features)</technology>
+    <technology>React Dropzone v14.3.8</technology>
+    <technology>Lucide React</technology>
+    <technology>date-fns v4.1.0</technology>
+    <technology>nprogress (loading indicators)</technology>
+    <technology>sonner (toast notifications)</technology>
+    <technology>class-variance-authority, clsx, tailwind-merge (styling utilities)</technology>
+    <technology>@dnd-kit/* (drag and drop functionality)</technology>
+    <technology>react-markdown with rehype-highlight and remark-gfm</technology>
+  </technology_stack>
+
+  <core_capabilities>
+    <capability>Client-side routing with TanStack Router</capability>
+    <capability>Server state management with TanStack Query</capability>
+    <capability>Authentication with external OAuth/JWT providers</capability>
+    <capability>Token management with automatic refresh</capability>
+    <capability>User management with role-based access control</capability>
+    <capability>Profile management with avatar uploads</capability>
+    <capability>File upload/download with external storage integration</capability>
+    <capability>Presigned URL generation for direct upload to storage services</capability>
+    <capability>Admin dashboard with user administration</capability>
+    <capability>Pagination and search functionality</capability>
+    <capability>Form validation with Zod schemas</capability>
+    <capability>Dark mode with system preference detection</capability>
+    <capability>Centralized error handling</capability>
+    <capability>Type-safe API contracts</capability>
+    <capability>AI chat completions via Anthropic Claude</capability>
+    <capability>Responsive design with Tailwind CSS</capability>
+    <capability>Static deployment support for CDNs</capability>
+  </core_capabilities>
+
+  <implemented_features>
+    <feature>
+      <name>Authentication System</name>
+      <description>Complete authentication flow with sign in, sign out, token management, and automatic token refresh. Supports OAuth integration (Google, GitHub, Auth0) and email/password authentication. Handles session persistence in localStorage with automatic token refresh via Axios interceptors.</description>
+      <file_locations>
+        <location>src/api-services/auth.service.ts</location>
+        <location>src/hooks/api/use-auth.ts</location>
+        <location>src/routes/sign-in.tsx</location>
+        <location>src/routes/sign-up.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>User Management</name>
+      <description>Comprehensive user management with CRUD operations, role assignment (super_admin, admin, guest), status management (active, suspended), profile updates, avatar uploads, and search/pagination support. Includes admin-only user administration interface.</description>
+      <file_locations>
+        <location>src/api-services/user.service.ts</location>
+        <location>src/hooks/api/use-users.ts</location>
+        <location>src/routes/dashboard/admin/users.tsx</location>
+        <location>src/components/CreateUserDialog.tsx</location>
+        <location>src/components/EditUserDialog.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>User Profile Pages</name>
+      <description>Public and private profile pages with user information, bio, avatar display, join date, and edit functionality. Profile viewing with breadcrumbs and back navigation. Settings page for editing profile information and uploading avatar.</description>
+      <file_locations>
+        <location>src/routes/profile/$userId/index.tsx</location>
+        <location>src/routes/dashboard/settings.tsx</location>
+        <location>src/components/UserAvatar.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>File Storage Integration</name>
+      <description>External storage service integration with support for presigned URL generation, direct file uploads, file validation, download URL generation with expiration, and file listing. Includes Cloudflare R2 implementation and file upload example component.</description>
+      <file_locations>
+        <location>src/api-services/storage.service.ts</location>
+        <location>src/hooks/api/use-storage.ts</location>
+        <location>src/utils/storage/r2.ts</location>
+        <location>src/components/FileUploadExample.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Admin Dashboard</name>
+      <description>Dashboard layout with collapsible sidebar navigation, role-based menu filtering, and user management interface. Includes breadcrumb navigation, panel components, and responsive design for mobile and desktop.</description>
+      <file_locations>
+        <location>src/routes/dashboard.tsx</location>
+        <location>src/routes/dashboard/index.tsx</location>
+        <location>src/components/DashboardBackground.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>API Service Layer</name>
+      <description>Centralized HTTP client with Axios, request/response interceptors for automatic token injection and error handling, token refresh logic, and typed API responses. Provides clean separation between UI and backend communication.</description>
+      <file_locations>
+        <location>src/api-services/client.ts</location>
+        <location>src/api-services/types.ts</location>
+        <location>src/api-services/index.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Form Validation</name>
+      <description>Form validation using React Hook Form with Zod schema validation. Includes sign-in form with email and password validation, profile settings form, and custom validation utilities.</description>
+      <file_locations>
+        <location>src/routes/sign-in.tsx</location>
+        <location>src/routes/dashboard/settings.tsx</location>
+        <location>src/components/ui/form.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Theme Management</name>
+      <description>Dark mode support with system preference detection, cookie-based theme persistence, and client-side theme switcher. Includes theme provider component with SSR-safe implementation.</description>
+      <file_locations>
+        <location>src/components/theme-provider.tsx</location>
+        <location>src/components/mode-toggle.tsx</location>
+        <location>src/routes/__root.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Landing Page</name>
+      <description>Modern landing page with Hero section, gradient backgrounds, animated elements, and call-to-action sections. Includes noise texture overlay and ambient background effects.</description>
+      <file_locations>
+        <location>src/routes/index.tsx</location>
+        <location>src/components/Hero.tsx</location>
+        <location>src/components/FinalCTASection.tsx</location>
+        <location>src/components/SectionDivider.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>AI Features (Anthropic Claude)</name>
+      <description>Integration with Anthropic Claude API for chat completions and streaming responses. Includes streaming and non-streaming chat functions, configurable models, and system prompt support.</description>
+      <file_locations>
+        <location>src/lib/anthropic.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Error Handling</name>
+      <description>Centralized error handling with custom error types, formatted error messages from API responses, authentication failure handling with automatic redirect, and toast notification support via Sonner.</description>
+      <file_locations>
+        <location>src/api-services/client.ts</location>
+        <location>src/components/DefaultCatchBoundary.tsx</location>
+        <location>src/components/NotFound.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Loading States</name>
+      <description>NProgress integration for route change loading indicators, skeleton loading states for data fetching, and built-in loading states for mutations and queries via TanStack Query.</description>
+      <file_locations>
+        <location>src/routes/__root.tsx</location>
+        <location>src/components/VideoGridSkeleton.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Suspended Account Handling</name>
+      <description>Dedicated suspended page for users with suspended accounts, with sign-out functionality and support contact options.</description>
+      <file_locations>
+        <location>src/routes/suspended.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>UI Component Library</name>
+      <description>Comprehensive Radix UI-based component library including buttons, inputs, dialogs, dropdowns, selects, checkboxes, accordions, tooltips, avatars, badges, panels, and more. All components follow consistent design patterns.</description>
+      <file_locations>
+        <location>src/components/ui/</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Navigation Components</name>
+      <description>Breadcrumbs, navigation hooks, and navigation state management. Includes collapsible sidebar with role-based filtering and responsive design.</description>
+      <file_locations>
+        <location>src/components/AppBreadcrumb.tsx</location>
+        <location>src/hooks/useNavigation.tsx</location>
+      </file_locations>
+    </feature>
+  </implemented_features>
+
+  <additional_requirements>
+    <requirement>Node.js v18 or higher</requirement>
+    <requirement>npm or yarn package manager</requirement>
+    <requirement>External Backend API Server (must provide RESTful endpoints matching service interfaces)</requirement>
+    <requirement>External Authentication Provider (OAuth provider like Auth0, Clerk, Firebase Auth, or custom auth service)</requirement>
+    <requirement>External File Storage Service (S3, Cloudflare R2, Google Cloud Storage)</requirement>
+    <requirement>Anthropic API Key (optional, for AI features)</requirement>
+    <requirement>VITE_API_BASE_URL environment variable</requirement>
+    <requirement>VITE_AUTH_PROVIDER_URL environment variable</requirement>
+    <requirement>VITE_AUTH_CLIENT_ID environment variable</requirement>
+    <requirement>VITE_AUTH_CALLBACK_URL environment variable</requirement>
+    <requirement>VITE_STORAGE_BASE_URL environment variable</requirement>
+    <requirement>VITE_STORAGE_BUCKET environment variable</requirement>
+  </additional_requirements>
+
+  <development_guidelines>
+    <guideline>Follow the Routes → Components → Hooks → API Service architecture pattern</guideline>
+    <guideline>Components should not make direct API calls - use TanStack Query hooks instead</guideline>
+    <guideline>All external API communication should go through the centralized service layer in src/api-services/</guideline>
+    <guideline>Define TypeScript types for API contracts in src/api-services/types.ts</guideline>
+    <guideline>Use TanStack Query for all server state management and caching</guideline>
+    <guideline>Follow existing code patterns and conventions when adding new features</guideline>
+    <guideline>Use Radix UI components as base, customized with Tailwind CSS</guideline>
+    <guideline>Implement proper error handling and loading states for all async operations</guideline>
+    <guideline>Use Zod schemas for form validation</guideline>
+    <guideline>Follow the existing naming conventions: PascalCase for components, camelCase for functions/variables</guideline>
+    <guideline>Add new API endpoints: (1) Define types in types.ts, (2) Add methods to appropriate service, (3) Create TanStack Query hooks, (4) Use in components</guideline>
+    <guideline>The build process includes TypeScript type checking - run &apos;npm run build&apos; to verify types</guideline>
+  </development_guidelines>
+
+  <implementation_roadmap>
+    <phase>
+      <name>Core Authentication &amp; User Management</name>
+      <status>completed</status>
+      <description></description>
+    </phase>
+    <phase>
+      <name>File Storage Integration</name>
+      <status>completed</status>
+      <description></description>
+    </phase>
+    <phase>
+      <name>UI/UX Components</name>
+      <status>completed</status>
+      <description></description>
+    </phase>
+    <phase>
+      <name>AI Features Integration</name>
+      <status>completed</status>
+      <description></description>
+    </phase>
+    <phase>
+      <name>Route Management &amp; Navigation</name>
+      <status>completed</status>
+      <description></description>
+    </phase>
+    <phase>
+      <name>Additional Features (Optional)</name>
+      <status>pending</status>
+      <description></description>
+    </phase>
+  </implementation_roadmap>
+</project_specification>

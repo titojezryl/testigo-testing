@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "phaseModelOverrides": {
+    "specGenerationModel": {
+      "model": "synthetic/hf:zai-org/GLM-4.7"
+    }
+  }
+}
