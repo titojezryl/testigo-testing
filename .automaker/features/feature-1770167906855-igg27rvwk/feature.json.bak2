@@ -1,0 +1,29 @@
+{
+  "category": "Uncategorized",
+  "description": "Refactor TanStack Start Full-Stack to Frontend-Only Architecture\n\nTransform the current PostgreSQL/Drizzle/Better Auth full-stack application into a clean frontend-only architecture that consumes external APIs. The existing UI design and components should remain unchanged while replacing all server-side infrastructure with a centralized API service layer.\n\nRequirements:\n\nRemove Backend Infrastructure\n- Delete src/db/ directory containing schema, migrations, and configuration files\n- Remove all Drizzle ORM dependencies from package.json\n- Uninstall Better Auth and remove all authentication middleware\n- Remove S3/R2 storage infrastructure and delete upload handlers\n- Delete all server-side API routes and tRPC/router implementations\n- Clean up server middleware, server functions, and session management code\n\nImplement API Service Layer\n- Create src/api-services/ directory with organized service modules\n- Build base HTTP client with request/response interceptors for auth tokens and error handling\n- Implement service modules for each domain (auth, users, files, etc.)\n- Define TypeScript interfaces matching external API contracts\n- Add request/response transformers for data normalization\n\nRefactor Frontend Architecture\n- Convert src/routes/ to frontend-only TanStack Router routes\n- Update all components to use new API hooks instead of server functions\n- Transform src/hooks/ to use TanStack Query for external API calls\n- Replace internal authentication with external provider integration (OAuth/JWT flow)\n- Update file upload components to use presigned URLs or direct client-side uploads\n\nUpdate Configuration and Documentation\n- Remove server-specific build configuration from build tools\n- Update Vite config for frontend-only deployment\n- Remove database connection strings and server secrets from environment variables\n- Add external API base URL configuration to environment\n- Update TypeScript paths and build targets for frontend-only\n- Update docs/architecture.md to reflect the new frontend-only architecture\n\nAcceptance Criteria\n- Application builds and runs without any backend dependencies\n- All data fetching flows through the centralized API service layer\n- Users can authenticate via external provider with persistent session management\n- File upload and download operations work through external storage APIs\n- Build outputs static assets suitable for CDN deployment\n- Architecture documentation accurately describes the new frontend-only pattern",
+  "title": "Refactor TanStack Start Full-Stack to Frontend-Only Architecture",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "synthetic/hf:zai-org/GLM-4.7",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "feature/refactore-file-architecture",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "custom",
+  "titleGenerating": false,
+  "status": "in_progress",
+  "id": "feature-1770167906855-igg27rvwk",
+  "descriptionHistory": [
+    {
+      "description": "Refactor TanStack Start Full-Stack to Frontend-Only Architecture\n\nTransform the current PostgreSQL/Drizzle/Better Auth full-stack application into a clean frontend-only architecture that consumes external APIs. The existing UI design and components should remain unchanged while replacing all server-side infrastructure with a centralized API service layer.\n\nRequirements:\n\nRemove Backend Infrastructure\n- Delete src/db/ directory containing schema, migrations, and configuration files\n- Remove all Drizzle ORM dependencies from package.json\n- Uninstall Better Auth and remove all authentication middleware\n- Remove S3/R2 storage infrastructure and delete upload handlers\n- Delete all server-side API routes and tRPC/router implementations\n- Clean up server middleware, server functions, and session management code\n\nImplement API Service Layer\n- Create src/api-services/ directory with organized service modules\n- Build base HTTP client with request/response interceptors for auth tokens and error handling\n- Implement service modules for each domain (auth, users, files, etc.)\n- Define TypeScript interfaces matching external API contracts\n- Add request/response transformers for data normalization\n\nRefactor Frontend Architecture\n- Convert src/routes/ to frontend-only TanStack Router routes\n- Update all components to use new API hooks instead of server functions\n- Transform src/hooks/ to use TanStack Query for external API calls\n- Replace internal authentication with external provider integration (OAuth/JWT flow)\n- Update file upload components to use presigned URLs or direct client-side uploads\n\nUpdate Configuration and Documentation\n- Remove server-specific build configuration from build tools\n- Update Vite config for frontend-only deployment\n- Remove database connection strings and server secrets from environment variables\n- Add external API base URL configuration to environment\n- Update TypeScript paths and build targets for frontend-only\n- Update docs/architecture.md to reflect the new frontend-only architecture\n\nAcceptance Criteria\n- Application builds and runs without any backend dependencies\n- All data fetching flows through the centralized API service layer\n- Users can authenticate via external provider with persistent session management\n- File upload and download operations work through external storage APIs\n- Build outputs static assets suitable for CDN deployment\n- Architecture documentation accurately describes the new frontend-only pattern",
+      "timestamp": "2026-02-04T01:18:26.988Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-04T01:18:38.117Z"
+}
